@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:ui';
 import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:knows/constant.dart';
 import 'package:knows/readpage.dart';
 import 'models/Data_model.dart';
 import 'getters.dart';
+import 'package:carousel_slider/carousel_options.dart';
 List<Data> nuzzscience = [];
 List<Data> nuzztech = [];
 class MyHomePage extends StatefulWidget {
@@ -111,11 +113,11 @@ jsonData['data'].forEach((element){
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
                     } else {
-                      return ListView.builder(
-                          physics: ClampingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
+                      return CarouselSlider.builder(
+                          // physics: ClampingScrollPhysics(),
+                          // scrollDirection: Axis.horizontal,
                           itemCount: nuzzs.length,
-                          itemBuilder: (context, idx) {
+                          itemBuilder: (context, idx,o) {
                             return Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: GestureDetector(
@@ -160,7 +162,15 @@ jsonData['data'].forEach((element){
                                 ),
                               ),
                             );
-                          });
+                          }, options: CarouselOptions(
+                        height: 400,
+                        viewportFraction: 0.7,
+                        autoPlay: true,
+                        autoPlayInterval: Duration(seconds: 2),
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeCenterPage: true,
+                      ),);
                     }
                   }),
             ),
