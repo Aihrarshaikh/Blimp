@@ -37,6 +37,7 @@ dependencies:
   http: ^0.13.5
   google_fonts: ^3.0.1
   blurrycontainer: ^1.0.2
+  dio: ^4.0.6
 #  webview_flutter: ^3.0.4
 
 dev_dependencies:
