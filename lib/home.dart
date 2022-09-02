@@ -124,7 +124,9 @@ jsonData['data'].forEach((element){
                                 onTap: (){
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => read_page(ss:nuzzs[idx].content.toString())),
+                                    MaterialPageRoute(builder: (context) => read_page(tittle: nuzzs[idx].title.toString(),content:nuzzs[idx].content.toString(),
+                                  author: nuzzs[idx].author.toString(),imageurl: nuzzs[idx].imageUrl.toString(),readmore: nuzzs[idx].readMoreUrl.toString(),
+                                  ),)
                                   );
                                 },
                                 child: ClipRRect(
@@ -163,10 +165,10 @@ jsonData['data'].forEach((element){
                               ),
                             );
                           }, options: CarouselOptions(
-                        height: 400,
+                        height: 390,
                         viewportFraction: 0.7,
                         autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 2),
+                        autoPlayInterval: Duration(seconds: 2 , microseconds: 50),
                         autoPlayAnimationDuration: Duration(milliseconds: 800),
                         autoPlayCurve: Curves.fastOutSlowIn,
                         enlargeCenterPage: true,
@@ -219,7 +221,7 @@ jsonData['data'].forEach((element){
                   future: gettechnews(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
+                      return  CircularProgressIndicator();
                     } else {
                       return ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
@@ -229,7 +231,9 @@ jsonData['data'].forEach((element){
                               onTap: (){
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => read_page(ss: nuzztech[idx].content.toString(),)),
+                                  MaterialPageRoute(builder: (context) => read_page(tittle: nuzztech[idx].title.toString(),content:nuzztech[idx].content.toString(),
+                                    author: nuzztech[idx].author.toString(),imageurl: nuzztech[idx].imageUrl.toString(),readmore: nuzztech[idx].readMoreUrl.toString(),
+                                  ),),
                                 );
                               },
                               child: SizedBox(
