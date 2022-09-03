@@ -5,12 +5,24 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:knows/constant.dart';
+import 'package:knows/readcategory.dart';
 import 'package:knows/readpage.dart';
 import 'models/Data_model.dart';
 import 'getters.dart';
 import 'package:carousel_slider/carousel_options.dart';
-List<Data> nuzzscience = [];
-List<Data> nuzztech = [];
+List<String> cato = ['technology',
+  'national',
+  'business',
+  'sports',
+  'world',
+  'politics',
+  'startup',
+  'entertainment',
+  'miscellaneous',
+  'science',
+  'automobile',
+  'all',];
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
   @override
@@ -18,53 +30,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Data> nuzzs = [];
-  Future<void> getallnuz() async {
-    final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=all'));
-    var jsonData = jsonDecode(response.body);
-    if (jsonData['success']==true) {
-jsonData['data'].forEach((element){
-      if(element['readMoreUrl']!=null){
-        Data data = Data(
-            author : element['author'],
-            content : element['content'],
-            date : element['date'],
-        imageUrl : element['imageUrl'],
-        readMoreUrl : element['readMoreUrl'],
-        time : element['time'],
-        title : element['title'],
-        url : element['url'],
-        );
-        nuzzs.add(data);
-      }
-});
-    }
-  }
-  Future<void> gettechnews() async {
-    final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=technology'));
-    var jsonData = jsonDecode(response.body);
-    if (jsonData['success']==true) {
-      jsonData['data'].forEach((element){
-        if(element['readMoreUrl']!=null){
-          Data data = Data(
-            author : element['author'],
-            content : element['content'],
-            date : element['date'],
-            imageUrl : element['imageUrl'],
-            readMoreUrl : element['readMoreUrl'],
-            time : element['time'],
-            title : element['title'],
-            url : element['url'],
-          );
-          nuzztech.add(data);
-        }
-      });
-    }
-  }
   @override
   void initState(){
     getallnuz();
-    gettechnews();
+    gettech();
   }
   Widget build(BuildContext context) {
     return Container(
@@ -81,7 +50,7 @@ jsonData['data'].forEach((element){
                       alignment: Alignment.topLeft,
                       child: DefaultTextStyle(
                         style: TextStyle(fontSize: 30,
-                        color: Colors.white
+                            color: Colors.white
                         ),
                         child: Text('Blimp'),
                       )),
@@ -114,99 +83,129 @@ jsonData['data'].forEach((element){
                       return Center(child: CircularProgressIndicator());
                     } else {
                       return CarouselSlider.builder(
-                          // physics: ClampingScrollPhysics(),
-                          // scrollDirection: Axis.horizontal,
-                          itemCount: nuzzs.length,
-                          itemBuilder: (context, idx,o) {
-                            return Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: GestureDetector(
-                                onTap: (){
-                                  Navigator.push(
+                        // physics: ClampingScrollPhysics(),
+                        // scrollDirection: Axis.horizontal,
+                        itemCount: nuzzs.length,
+                        itemBuilder: (context, idx,o) {
+                          return Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: GestureDetector(
+                              onTap: (){
+                                Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (context) => read_page(tittle: nuzzs[idx].title.toString(),content:nuzzs[idx].content.toString(),
-                                  author: nuzzs[idx].author.toString(),imageurl: nuzzs[idx].imageUrl.toString(),readmore: nuzzs[idx].readMoreUrl.toString(),
-                                  ),)
-                                  );
-                                },
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(24),
-                                  child: Stack(children: [
-                                    SizedBox(
-                                      width:280,
-                                      height: 350,
-                                      child: FittedBox(
-                                        alignment: Alignment.center,
-                                        fit: BoxFit.cover,
-                                        child: Image.network(nuzzs[idx].imageUrl.toString()),
-                                        clipBehavior: Clip.hardEdge,
-                                      ),
+                                      author: nuzzs[idx].author.toString(),imageurl: nuzzs[idx].imageUrl.toString(),readmore: nuzzs[idx].readMoreUrl.toString(),
+                                    ),)
+                                );
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(24),
+                                child: Stack(children: [
+                                  SizedBox(
+                                    width:280,
+                                    height: 350,
+                                    child: FittedBox(
+                                      alignment: Alignment.center,
+                                      fit: BoxFit.cover,
+                                      child: Image.network(nuzzs[idx].imageUrl.toString()),
+                                      clipBehavior: Clip.hardEdge,
                                     ),
-                                    Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: BlurryContainer(
-                                        child: DefaultTextStyle(
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              overflow: TextOverflow.fade),
-                                          child: Text(nuzzs[idx].title.toString()),
-                                        ),
-                                        blur: 5,
-                                        width: 280,
-                                        height: 160,
-                                        elevation: 8,
-                                        color: Colors.transparent,
-                                        padding: const EdgeInsets.all(8),
-                                        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(24) ,bottomRight: Radius.circular(24)),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: BlurryContainer(
+                                      child: DefaultTextStyle(
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            overflow: TextOverflow.fade),
+                                        child: Text(nuzzs[idx].title.toString()),
                                       ),
-                                    )
-                                  ]),
-                                ),
+                                      blur: 5,
+                                      width: 280,
+                                      height: 160,
+                                      elevation: 8,
+                                      color: Colors.transparent,
+                                      padding: const EdgeInsets.all(8),
+                                      borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(24) ,bottomRight: Radius.circular(24)),
+                                    ),
+                                  )
+                                ]),
                               ),
-                            );
-                          }, options: CarouselOptions(
+                            ),
+                          );
+                        }, options: CarouselOptions(
                         height: 390,
                         viewportFraction: 0.7,
                         autoPlay: true,
                         autoPlayInterval: Duration(seconds: 2 , microseconds: 50),
                         autoPlayAnimationDuration: Duration(milliseconds: 800),
                         autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeCenterPage: true,
+                        // enlargeCenterPage: true,
                       ),);
                     }
                   }),
             ),
-            SizedBox(height: 40,
-            child: Container(
-              color: kbasik,
-            ),),
-            Container(
-              child: Row(children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Align(
-                      alignment: Alignment.topLeft,
-                      child: DefaultTextStyle(
-                        style: TextStyle(fontSize: 30,
-                            color: Colors.white
+            SizedBox(height: 20,
+              child: Container(
+                color: kbasik,
+              ),),
+            SizedBox(
+              height: 60,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 12,
+                itemBuilder: (context,idx){
+                  return Container(
+                    margin: EdgeInsets.only(left: 8,right: 8),
+                    padding: EdgeInsets.only(top: 5,right: 11),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: kcard
+                    ),
+                    child: Row(children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 5),
+                        color : kcard,
+                        child: GestureDetector(
+                          onTap : (){
+                            setState((){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => readcategori()),
+                              );
+                            });
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 20),
+                            child: Align(
+                                alignment: Alignment.topLeft,
+                                child: DefaultTextStyle(
+                                  style: TextStyle(fontSize: 30,
+                                      color: Colors.white
+                                  ),
+                                  child: Text(cato[idx]),
+                                )),
+                          ),
                         ),
-                        child: Text('Technology'),
-                      )),
-                ),
-                Align(
-                    alignment: Alignment.topLeft,
-                    child: DefaultTextStyle(
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFF29300),
                       ),
-                      child: Text('.'),
-                    )),
-              ]),
+                      Align(
+                          alignment: Alignment.centerLeft,
+                          child: DefaultTextStyle(
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFF29300),
+                            ),
+                            child: Text('.'),
+                          )),
+                    ]
+                    ),
+                  );
+                },
+              ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16 ,vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 16,vertical: 5),
               child: Divider(
                 height: 5,
                 color: Colors.white,
@@ -215,24 +214,24 @@ jsonData['data'].forEach((element){
             // SizedBox(height: 180),
             Center(
               child: SizedBox(
-                height: nuzztech.length*201.toDouble(),
+                height: technuzz.length*211.toDouble(),
                 // width: double.infinity,
                 child: FutureBuilder(
-                  future: gettechnews(),
+                  future: gettech(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return  CircularProgressIndicator();
                     } else {
                       return ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount: nuzztech.length,
+                          itemCount: technuzz.length,
                           itemBuilder: (context, idx) {
                             return GestureDetector(
                               onTap: (){
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => read_page(tittle: nuzztech[idx].title.toString(),content:nuzztech[idx].content.toString(),
-                                    author: nuzztech[idx].author.toString(),imageurl: nuzztech[idx].imageUrl.toString(),readmore: nuzztech[idx].readMoreUrl.toString(),
+                                  MaterialPageRoute(builder: (context) => read_page(tittle: technuzz[idx].title.toString(),content:technuzz[idx].content.toString(),
+                                    author: technuzz[idx].author.toString(),imageurl: technuzz[idx].imageUrl.toString(),readmore: technuzz[idx].readMoreUrl.toString(),
                                   ),),
                                 );
                               },
@@ -243,7 +242,7 @@ jsonData['data'].forEach((element){
                                     borderRadius: BorderRadius.circular(10),
                                     color: kcard,
                                   ),
-                                  margin: EdgeInsets.all(12),
+                                  margin: EdgeInsets.symmetric(horizontal: 12,vertical: 12),
                                   child: Row(
                                     children: [
                                       Padding(
@@ -252,7 +251,7 @@ jsonData['data'].forEach((element){
                                           width: 130,
                                           height: 130,
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(20)
+                                              borderRadius: BorderRadius.circular(20)
                                           ),
                                           // padding: EdgeInsets.all(25),
                                           child: ClipRRect(
@@ -260,7 +259,7 @@ jsonData['data'].forEach((element){
                                             child: FittedBox(
                                               alignment: Alignment.center,
                                               fit: BoxFit.cover,
-                                              child: Image.network(nuzztech[idx].imageUrl.toString()),
+                                              child: Image.network(technuzz[idx].imageUrl.toString()),
                                               clipBehavior: Clip.hardEdge,
                                             ),
                                           ),
@@ -272,43 +271,43 @@ jsonData['data'].forEach((element){
                                           children: [
                                             Container(
                                               padding: EdgeInsets.symmetric( vertical: 10),
-                                                width: 200,
-                                                margin: EdgeInsets.all(10),
-                                                child: DefaultTextStyle(
-                                                  style: TextStyle(fontSize: 14,
-                                                  overflow: TextOverflow.fade
-                                                  ),
-                                                  child: Text(nuzztech[idx].title.toString(),maxLines: 4,
-                                                  style: TextStyle(
-                                                    overflow: TextOverflow.clip
-                                                  ),),
+                                              width: 200,
+                                              margin: EdgeInsets.all(10),
+                                              child: DefaultTextStyle(
+                                                style: TextStyle(fontSize: 14,
+                                                    overflow: TextOverflow.fade
                                                 ),
+                                                child: Text(technuzz[idx].title.toString(),maxLines: 4,
+                                                  style: TextStyle(
+                                                      overflow: TextOverflow.clip
+                                                  ),),
                                               ),
+                                            ),
                                             Align(
                                               alignment: Alignment.bottomLeft,
                                               child: Container(
                                                 // padding: EdgeInsets.symmetric(horizontal: 10),
                                                 width: 200,
                                                 child:
-                                                  DefaultTextStyle(
-                                                    style: TextStyle(fontSize: 12,
-                                                        overflow: TextOverflow.fade,
-                                                      color: Colors.grey,
-                                                    ),
-                                                    child: Text(nuzztech[idx].author.toString()+'  |   ' + nuzztech[idx].date.toString()),
+                                                DefaultTextStyle(
+                                                  style: TextStyle(fontSize: 12,
+                                                    overflow: TextOverflow.fade,
+                                                    color: Colors.grey,
                                                   ),
+                                                  child: Text(technuzz[idx].author.toString()+'  |   ' + technuzz[idx].date.toString()),
+                                                ),
                                               ),
                                             ),
                                           ],
                                         ),
-                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
                               ),
                             );
                           }
-                          );
+                      );
                     }
                   },
                 ),
