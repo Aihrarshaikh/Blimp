@@ -12,9 +12,33 @@ List<Data> nuzzstartup= [];
 List<Data> nuzzentertainment = [];
 List<Data> nuzzmiscellaneous = [];
 List<Data> technuzz = [];
+List<Data> nuzzsci = [];
+List<Data> nuzzauto = [];
+
+Future<void> getauto() async {
+  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=automobile'));
+  var jsonData = jsonDecode(response.body);
+  if (jsonData['success']==true) {
+    jsonData['data'].forEach((element){
+      if(element['readMoreUrl']!=null){
+        Data data = Data(
+          author : element['author'],
+          content : element['content'],
+          date : element['date'],
+          imageUrl : element['imageUrl'],
+          readMoreUrl : element['readMoreUrl'],
+          time : element['time'],
+          title : element['title'],
+          url : element['url'],
+        );
+        nuzzauto.add(data);
+      }
+    });
+  }
+}
 
 Future<void> getmischef() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=technology'));
+  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=miscellaneous'));
   var jsonData = jsonDecode(response.body);
   if (jsonData['success']==true) {
     jsonData['data'].forEach((element){
@@ -34,9 +58,31 @@ Future<void> getmischef() async {
     });
   }
 }
+Future<void> getscience() async {
+  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=science'));
+  var jsonData = jsonDecode(response.body);
+  if (jsonData['success']==true) {
+    jsonData['data'].forEach((element){
+      if(element['readMoreUrl']!=null){
+        Data data = Data(
+          author : element['author'],
+          content : element['content'],
+          date : element['date'],
+          imageUrl : element['imageUrl'],
+          readMoreUrl : element['readMoreUrl'],
+          time : element['time'],
+          title : element['title'],
+          url : element['url'],
+        );
+        nuzzsci.add(data);
+      }
+    });
+  }
+}
+
 
 Future<void> getentertainment() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=technology'));
+  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=entertainment'));
   var jsonData = jsonDecode(response.body);
   if (jsonData['success']==true) {
     jsonData['data'].forEach((element){
@@ -58,7 +104,7 @@ Future<void> getentertainment() async {
 }
 
 Future<void> getstartup() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=technology'));
+  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=startup'));
   var jsonData = jsonDecode(response.body);
   if (jsonData['success']==true) {
     jsonData['data'].forEach((element){
@@ -80,7 +126,7 @@ Future<void> getstartup() async {
 }
 
 Future<void> getpolitics() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=technology'));
+  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=politics'));
   var jsonData = jsonDecode(response.body);
   if (jsonData['success']==true) {
     jsonData['data'].forEach((element){
@@ -102,7 +148,7 @@ Future<void> getpolitics() async {
 }
 
 Future<void> getworld() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=technology'));
+  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=world'));
   var jsonData = jsonDecode(response.body);
   if (jsonData['success']==true) {
     jsonData['data'].forEach((element){
@@ -124,7 +170,7 @@ Future<void> getworld() async {
 }
 
 Future<void> getsports() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=technology'));
+  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=sports'));
   var jsonData = jsonDecode(response.body);
   if (jsonData['success']==true) {
     jsonData['data'].forEach((element){
@@ -146,7 +192,7 @@ Future<void> getsports() async {
 }
 
 Future<void> getbusiness() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=technology'));
+  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=business'));
   var jsonData = jsonDecode(response.body);
   if (jsonData['success']==true) {
     jsonData['data'].forEach((element){
@@ -214,7 +260,7 @@ Future<void> gettech() async {
 }
 
 Future<void> getnational() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=all'));
+  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=national'));
   var jsonData = jsonDecode(response.body);
   if (jsonData['success']==true) {
     jsonData['data'].forEach((element){

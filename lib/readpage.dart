@@ -1,8 +1,11 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:knows/constant.dart';
 // import 'package:knows/getters.dart';
 import 'package:knows/models/Data_model.dart';
+// import 'package:knows/webview.dart';
+// import 'package:webview_flutter/webview_flutter.dart';
 import 'home.dart';
 
 class read_page extends StatelessWidget {
@@ -19,12 +22,38 @@ class read_page extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kbasik,
+        title:  Row(children: [
+          Align(
+              alignment: Alignment.topLeft,
+              child: DefaultTextStyle(
+                style: TextStyle(fontSize: 30,
+                    color: Colors.white
+                ),
+                child: Text('Blimp'),
+              )),
+          Align(
+              alignment: Alignment.topLeft,
+              child: DefaultTextStyle(
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFF29300),
+                ),
+                child: Text('.'),
+              )),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Divider(
+              height: 5,
+              color: Colors.white,
+            ),
+          ),
+        ]),
       ),
       backgroundColor: kbasik,
       body: SingleChildScrollView(
         child: Column(
             children: [
-              SizedBox(height: 50,),
               Stack(
                 children: [
                   Container(
@@ -76,7 +105,8 @@ class read_page extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.grey
                   ),),
-              )
+              ),
+              SizedBox(height: 20,)
             ]
         ),
       ),

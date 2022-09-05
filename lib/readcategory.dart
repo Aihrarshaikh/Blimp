@@ -11,8 +11,17 @@ import 'models/Data_model.dart';
 import 'getters.dart';
 import 'package:carousel_slider/carousel_options.dart';
 
-class readcategori extends StatelessWidget {
-  const readcategori({Key? key}) : super(key: key);
+class readcategori extends StatefulWidget {
+  String categoriname;
+  Future<void> categorinuzz;
+  List<Data>  categlist;
+  readcategori({Key? key,required this.categoriname,required this.categorinuzz,required this.categlist}) : super(key: key);
+
+  @override
+  State<readcategori> createState() => _readcategoriState();
+}
+
+class _readcategoriState extends State<readcategori> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +37,7 @@ class readcategori extends StatelessWidget {
                       alignment: Alignment.topLeft,
                       child: DefaultTextStyle(
                         style: TextStyle(fontSize: 30, color: Colors.white),
-                        child: Text('Blimp'),
+                        child: Text(widget.categoriname),
                       )),
                 ),
                 Align(
@@ -52,17 +61,17 @@ class readcategori extends StatelessWidget {
             ),
             Center(
               child: SizedBox(
-                height: technuzz.length*211.toDouble(),
+                height: widget.categlist.length*202.toDouble(),
                 // width: double.infinity,
                 child: FutureBuilder(
-                  future: gettech(),
+                  future: widget.categorinuzz,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return CircularProgressIndicator();
                     } else {
                       return ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount: technuzz.length,
+                          itemCount: widget.categlist.length,
                           itemBuilder: (context, idx) {
                             return GestureDetector(
                               onTap: () {
@@ -70,12 +79,12 @@ class readcategori extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => read_page(
-                                      tittle: technuzz[idx].title.toString(),
-                                      content: technuzz[idx].content.toString(),
-                                      author: technuzz[idx].author.toString(),
-                                      imageurl: technuzz[idx].imageUrl.toString(),
+                                      tittle: widget.categlist[idx].title.toString(),
+                                      content: widget.categlist[idx].content.toString(),
+                                      author: widget.categlist[idx].author.toString(),
+                                      imageurl: widget.categlist[idx].imageUrl.toString(),
                                       readmore:
-                                          technuzz[idx].readMoreUrl.toString(),
+                                          widget.categlist[idx].readMoreUrl.toString(),
                                     ),
                                   ),
                                 );
@@ -109,7 +118,7 @@ class readcategori extends StatelessWidget {
                                             child: FittedBox(
                                               alignment: Alignment.center,
                                               fit: BoxFit.cover,
-                                              child: Image.network(technuzz[idx]
+                                              child: Image.network(widget.categlist[idx]
                                                   .imageUrl
                                                   .toString()),
                                               clipBehavior: Clip.hardEdge,
@@ -124,14 +133,14 @@ class readcategori extends StatelessWidget {
                                             Container(
                                               padding: EdgeInsets.symmetric(
                                                   vertical: 10),
-                                              width: 200,
+                                              width: 160,
                                               margin: EdgeInsets.all(10),
                                               child: DefaultTextStyle(
                                                 style: TextStyle(
                                                     fontSize: 14,
                                                     overflow: TextOverflow.fade),
                                                 child: Text(
-                                                  technuzz[idx].title.toString(),
+                                                  widget.categlist[idx].title.toString(),
                                                   maxLines: 4,
                                                   style: TextStyle(
                                                       overflow: TextOverflow.clip),
@@ -142,18 +151,18 @@ class readcategori extends StatelessWidget {
                                               alignment: Alignment.bottomLeft,
                                               child: Container(
                                                 // padding: EdgeInsets.symmetric(horizontal: 10),
-                                                width: 200,
+                                                width: 160,
                                                 child: DefaultTextStyle(
                                                   style: TextStyle(
                                                     fontSize: 12,
                                                     overflow: TextOverflow.fade,
                                                     color: Colors.grey,
                                                   ),
-                                                  child: Text(technuzz[idx]
+                                                  child: Text(widget.categlist[idx]
                                                           .author
                                                           .toString() +
                                                       '  |   ' +
-                                                      technuzz[idx]
+                                                      widget.categlist[idx]
                                                           .date
                                                           .toString()),
                                                 ),
