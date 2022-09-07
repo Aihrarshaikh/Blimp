@@ -1,18 +1,12 @@
-import 'dart:convert';
-import 'dart:ui';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:knows/constant.dart';
+import 'package:knows/models/apiservices.dart';
 import 'package:knows/readcategory.dart';
 import 'package:knows/readpage.dart';
-// import 'package:webview_flutter/webview_flutter.dart';
-import 'models/Data_model.dart';
-import 'getters.dart';
-import 'package:carousel_slider/carousel_options.dart';
 
-List<String> cato = [
+List<String> category = [
   'technology',
   'science',
   'national',
@@ -26,34 +20,6 @@ List<String> cato = [
   'automobile',
   'all',
 ];
-List<Future<void>> catoget = [
-  gettech(),
-  getscience(),
-  getnational(),
-  getbusiness(),
-  getsports(),
-  getworld(),
-  getpolitics(),
-  getstartup(),
-  getentertainment(),
-  getmischef(),
-  getauto(),
-  getallnuz()
-];
-List<List<Data>> catolist = [
-  technuzz,
-  nuzzsci,
-  nuzznational,
-  nuzzbusiness,
-  nuzzsports,
-  nuzzworld,
-  nuzzpolitics,
-  nuzzstartup,
-  nuzzentertainment,
-  nuzzmiscellaneous,
-  nuzzauto,
-  nuzzs,
-];
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -63,44 +29,36 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
-  void initState() {
-    getscience();
-    gettech();
-    super.initState();
-    // WebView.platform = AndroidWebView();
-  }
-
+  late int newscategoryindex = 0;
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: kbasik),
+      decoration: const BoxDecoration(color: kbasic),
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 60),
-            Container(
-              child: Row(children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Align(
-                      alignment: Alignment.topLeft,
-                      child: DefaultTextStyle(
-                        style: TextStyle(fontSize: 30, color: Colors.white),
-                        child: Text('Blimp'),
-                      )),
-                ),
-                Align(
+            const SizedBox(height: 50),
+            Row(children: const [
+              Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Align(
                     alignment: Alignment.topLeft,
                     child: DefaultTextStyle(
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFF29300),
-                      ),
-                      child: Text('.'),
+                      style: TextStyle(fontSize: 30, color: Colors.white),
+                      child: Text('Blimp'),
                     )),
-              ]),
-            ),
-            Padding(
+              ),
+              Align(
+                  alignment: Alignment.topLeft,
+                  child: DefaultTextStyle(
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFF29300),
+                    ),
+                    child: Text('.'),
+                  )),
+            ]),
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Divider(
                 height: 5,
@@ -110,16 +68,13 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: 400,
               child: FutureBuilder(
-                  future: getscience(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
-                    } else {
+                  future: ApiService().getnews('science'),
+                  builder: (context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
                       return CarouselSlider.builder(
-                        // physics: ClampingScrollPhysics(),
-                        // scrollDirection: Axis.horizontal,
-                        itemCount: nuzzsci.length,
-                        itemBuilder: (context, idx, o) {
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, int index,
+                            int pageViewIndex) {
                           return Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: GestureDetector(
@@ -127,14 +82,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => read_page(
-                                        tittle: nuzzsci[idx].title.toString(),
-                                        content: nuzzsci[idx].content.toString(),
-                                        author: nuzzsci[idx].author.toString(),
-                                        imageurl:
-                                            nuzzsci[idx].imageUrl.toString(),
-                                        readmore:
-                                            nuzzsci[idx].readMoreUrl.toString(),
+                                      builder: (context) => Read_page(
+                                        tittle: snapshot.data[index].title
+                                            .toString(),
+                                        content: snapshot.data[index].content
+                                            .toString(),
+                                        author: snapshot.data[index].author
+                                            .toString(),
+                                        imageurl: snapshot.data[index].imageUrl
+                                            .toString(),
+                                        readmore: snapshot
+                                            .data[index].readMoreUrl
+                                            .toString(),
                                       ),
                                     ));
                               },
@@ -147,21 +106,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                     child: FittedBox(
                                       alignment: Alignment.center,
                                       fit: BoxFit.cover,
-                                      child: Image.network(
-                                          nuzzsci[idx].imageUrl.toString()),
                                       clipBehavior: Clip.hardEdge,
+                                      child: Image.network(snapshot
+                                          .data[index].imageUrl
+                                          .toString()),
                                     ),
                                   ),
                                   Align(
                                     alignment: Alignment.bottomCenter,
                                     child: BlurryContainer(
-                                      child: DefaultTextStyle(
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            overflow: TextOverflow.fade),
-                                        child:
-                                            Text(nuzzsci[idx].title.toString()),
-                                      ),
                                       blur: 5,
                                       width: 280,
                                       height: 160,
@@ -171,6 +124,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                       borderRadius: const BorderRadius.only(
                                           bottomLeft: Radius.circular(24),
                                           bottomRight: Radius.circular(24)),
+                                      child: DefaultTextStyle(
+                                        style: const TextStyle(
+                                            fontSize: 18,
+                                            overflow: TextOverflow.fade),
+                                        child: Text(snapshot.data[index].title
+                                            .toString()),
+                                      ),
                                     ),
                                   )
                                 ]),
@@ -183,113 +143,112 @@ class _MyHomePageState extends State<MyHomePage> {
                           viewportFraction: 0.7,
                           autoPlay: true,
                           autoPlayInterval:
-                              Duration(seconds: 2, microseconds: 50),
+                              const Duration(seconds: 2, microseconds: 50),
                           autoPlayAnimationDuration:
-                              Duration(milliseconds: 800),
+                              const Duration(milliseconds: 800),
                           autoPlayCurve: Curves.fastOutSlowIn,
                           // enlargeCenterPage: true,
                         ),
                       );
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
                     }
                   }),
             ),
-            SizedBox(
+            Container(
               height: 20,
-              child: Container(
-                color: kbasik,
-              ),
+              color: kbasic,
             ),
             SizedBox(
               height: 55,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: 12,
-                itemBuilder: (context, idx) {
+                itemBuilder: (context, index) {
                   return Container(
-                    margin: EdgeInsets.only(left: 8, right: 8),
-                    padding: EdgeInsets.only(top: 3, right: 11),
+                    margin: const EdgeInsets.only(left: 8, right: 8),
+                    padding: const EdgeInsets.only(top: 3, right: 11),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(24), color: kcard),
-                    child: Row(children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 5),
-                        // color : kcard,
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
+                    child: Center(
+                      child: Row(children: [
+                        Container(
+                          margin: const EdgeInsets.only(left: 5),
+                          child: GestureDetector(
+                            onDoubleTap: (){
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => readcategori(
-                                          categoriname: cato[idx],
-                                          categorinuzz: catoget[idx],
-                                          categlist: catolist[idx],
-                                        )),
+                                    builder: (context) => Readcategory(categoryname: category[index])),
                               );
-                            });
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 15),
-                            child: Align(
-                                alignment: Alignment.topLeft,
-                                child: DefaultTextStyle(
-                                  style: TextStyle(
-                                      fontSize: 30, color: Colors.white),
-                                  child: Text(cato[idx]),
-                                )),
+                            },
+                            onTap: () {
+                              setState(() {
+                                newscategoryindex = index;
+                              });
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 15),
+                              child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: DefaultTextStyle(
+                                    style: const TextStyle(
+                                        fontSize: 30, color: Colors.white),
+                                    child: Text(category[index]),
+                                  )),
+                            ),
                           ),
                         ),
-                      ),
-                      Align(
-                          alignment: Alignment.topLeft,
-                          child: DefaultTextStyle(
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFFF29300),
-                            ),
-                            child: Text('.'),
-                          )),
-                    ]),
+                        const Align(
+                            alignment: Alignment.topLeft,
+                            child: DefaultTextStyle(
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFFF29300),
+                              ),
+                              child: Text('.'),
+                            )),
+                      ]),
+                    ),
                   );
                 },
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(top: 8, right: 16, left: 16),
               child: Divider(
                 height: 5,
                 color: Colors.white,
               ),
             ),
-            // SizedBox(height: 180),
             Center(
-              child: SizedBox(
-                height: technuzz.length* 211.toDouble(),
-                // width: double.infinity,
-                child: FutureBuilder(
-                  future: gettech(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
-                    } else {
-                      return ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: technuzz.length,
-                          itemBuilder: (context, idx) {
+              child: FutureBuilder(
+                future: ApiService().getnews(category[newscategoryindex]),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return SizedBox(
+                      height: snapshot.data.length * 211.toDouble(),
+                      child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => read_page(
-                                      tittle: technuzz[idx].title.toString(),
-                                      content: technuzz[idx].content.toString(),
-                                      author: technuzz[idx].author.toString(),
-                                      imageurl:
-                                          technuzz[idx].imageUrl.toString(),
-                                      readmore:
-                                          technuzz[idx].readMoreUrl.toString(),
+                                    builder: (context) => Read_page(
+                                      tittle:
+                                          snapshot.data[index].title.toString(),
+                                      content: snapshot.data[index].content
+                                          .toString(),
+                                      author: snapshot.data[index].author
+                                          .toString(),
+                                      imageurl: snapshot.data[index].imageUrl
+                                          .toString(),
+                                      readmore: snapshot.data[index].readMoreUrl
+                                          .toString(),
                                     ),
                                   ),
                                 );
@@ -302,7 +261,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     borderRadius: BorderRadius.circular(10),
                                     color: kcard,
                                   ),
-                                  margin: EdgeInsets.symmetric(
+                                  margin: const EdgeInsets.symmetric(
                                       horizontal: 12, vertical: 12),
                                   child: Row(
                                     children: [
@@ -325,10 +284,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                             child: FittedBox(
                                               alignment: Alignment.center,
                                               fit: BoxFit.cover,
-                                              child: Image.network(technuzz[idx]
-                                                  .imageUrl
-                                                  .toString()),
                                               clipBehavior: Clip.hardEdge,
+                                              child: Image.network(snapshot
+                                                  .data[index].imageUrl
+                                                  .toString()),
                                             ),
                                           ),
                                         ),
@@ -338,21 +297,21 @@ class _MyHomePageState extends State<MyHomePage> {
                                         child: Column(
                                           children: [
                                             Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 10),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10),
                                               width: 160,
-                                              margin: EdgeInsets.all(10),
+                                              margin: const EdgeInsets.all(10),
                                               child: DefaultTextStyle(
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 14,
                                                     overflow:
                                                         TextOverflow.fade),
                                                 child: Text(
-                                                  technuzz[idx]
-                                                      .title
+                                                  snapshot.data[index].title
                                                       .toString(),
                                                   maxLines: 4,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       overflow:
                                                           TextOverflow.clip),
                                                 ),
@@ -360,22 +319,17 @@ class _MyHomePageState extends State<MyHomePage> {
                                             ),
                                             Align(
                                               alignment: Alignment.bottomLeft,
-                                              child: Container(
-                                                // padding: EdgeInsets.symmetric(horizontal: 10),
+                                              child: SizedBox(
+
                                                 width: 160,
                                                 child: DefaultTextStyle(
-                                                  style: TextStyle(
+                                                  style:const TextStyle(
                                                     fontSize: 12,
                                                     overflow: TextOverflow.fade,
                                                     color: Colors.grey,
                                                   ),
-                                                  child: Text(technuzz[idx]
-                                                          .author
-                                                          .toString() +
-                                                      '  |   ' +
-                                                      technuzz[idx]
-                                                          .date
-                                                          .toString()),
+                                                  child: Text('${snapshot
+                                                          .data[index].author}  |   ${snapshot.data[index].date}'),
                                                 ),
                                               ),
                                             ),
@@ -387,10 +341,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                               ),
                             );
-                          });
-                    }
-                  },
-                ),
+                          }),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
               ),
             ),
           ],
