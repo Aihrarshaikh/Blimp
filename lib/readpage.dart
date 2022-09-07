@@ -1,28 +1,22 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:knows/constant.dart';
-// import 'package:knows/getters.dart';
-import 'package:knows/models/Data_model.dart';
-// import 'package:knows/webview.dart';
-// import 'package:webview_flutter/webview_flutter.dart';
-import 'home.dart';
 
-class read_page extends StatelessWidget {
+class Read_page extends StatelessWidget {
   String tittle;
   String content;
   String imageurl;
   String author;
   String readmore;
   // Image
-  read_page({Key? key, required this.tittle, required this.content,required this.imageurl,required this.author, required this.readmore}) : super(key: key);
+  Read_page({Key? key, required this.tittle, required this.content,required this.imageurl,required this.author, required this.readmore}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kbasik,
-        title:  Row(children: [
+        backgroundColor: kbasic,
+        title:  Row(children: const [
           Align(
               alignment: Alignment.topLeft,
               child: DefaultTextStyle(
@@ -50,14 +44,14 @@ class read_page extends StatelessWidget {
           ),
         ]),
       ),
-      backgroundColor: kbasik,
+      backgroundColor: kbasic,
       body: SingleChildScrollView(
         child: Column(
             children: [
               Stack(
                 children: [
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(24),topRight: Radius.circular(24))
                     ),
                     height: 300,
@@ -68,8 +62,8 @@ class read_page extends StatelessWidget {
                       child: FittedBox(
                         alignment: Alignment.center,
                         fit: BoxFit.cover,
-                        child: Image.network(imageurl),
                         clipBehavior: Clip.hardEdge,
+                        child: Image.network(imageurl),
                       ),
                     ),
                   ),
@@ -85,14 +79,14 @@ class read_page extends StatelessWidget {
                 ],
               ),
               Container(
-                padding: EdgeInsets.only(left: 18,right: 18,top: 10),
+                padding: const EdgeInsets.only(left: 18,right: 18,top: 10),
                 child: Text(tittle,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),),
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(right: 18,left: 18,top: 20),
                 child: Divider(
                   height: 8,
@@ -100,13 +94,13 @@ class read_page extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(18),
+                padding: const EdgeInsets.all(18),
                 child: Text(content,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.grey
                   ),),
               ),
-              SizedBox(height: 20,)
+              const SizedBox(height: 20,)
             ]
         ),
       ),
