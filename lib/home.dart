@@ -344,7 +344,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }),
                     );
                   } else {
-                    return const Center(child: CircularProgressIndicator());
+                    return Container();
                   }
                 },
               ),
