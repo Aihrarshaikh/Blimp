@@ -1,10 +1,10 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:knows/constant.dart';
+import 'package:knows/constants/constant.dart';
 import 'package:knows/models/apiservices.dart';
-import 'package:knows/readcategory.dart';
-import 'package:knows/readpage.dart';
+import 'package:knows/screens/readcategory.dart';
+import 'package:knows/screens/readpage.dart';
 
 List<String> category = [
   'technology',
@@ -175,11 +175,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         Container(
                           margin: const EdgeInsets.only(left: 5),
                           child: GestureDetector(
-                            onDoubleTap: (){
+                            onDoubleTap: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Readcategory(categoryname: category[index])),
+                                    builder: (context) => Readcategory(
+                                        categoryname: category[index])),
                               );
                             },
                             onTap: () {
@@ -320,16 +321,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                             Align(
                                               alignment: Alignment.bottomLeft,
                                               child: SizedBox(
-
                                                 width: 160,
                                                 child: DefaultTextStyle(
-                                                  style:const TextStyle(
+                                                  style: const TextStyle(
                                                     fontSize: 12,
                                                     overflow: TextOverflow.fade,
                                                     color: Colors.grey,
                                                   ),
-                                                  child: Text('${snapshot
-                                                          .data[index].author}  |   ${snapshot.data[index].date}'),
+                                                  child: Text(
+                                                      '${snapshot.data[index].author}  |   ${snapshot.data[index].date}'),
                                                 ),
                                               ),
                                             ),
