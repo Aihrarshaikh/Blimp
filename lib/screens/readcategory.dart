@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:knows/constants/constant.dart';
 import 'package:knows/models/apiservices.dart';
 import 'package:knows/screens/readpage.dart';
-import '../models/data_model.dart';
 
 class Readcategory extends StatefulWidget {
   String categoryname;
@@ -154,7 +153,7 @@ class _ReadcategoryState extends State<Readcategory> {
                                                 child: Text(snapshot
                                                         .data[index].author
                                                         .toString() +
-                                                    '  |   ' +
+                                                    '\n' +
                                                     snapshot.data[index].date
                                                         .toString()),
                                               ),
@@ -171,7 +170,11 @@ class _ReadcategoryState extends State<Readcategory> {
                         }),
                   );
                 } else {
-                  return Container();
+                  return Container(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
                 }
               },
             ),

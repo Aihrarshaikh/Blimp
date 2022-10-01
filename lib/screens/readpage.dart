@@ -8,7 +8,6 @@ class Read_page extends StatelessWidget {
   String imageurl;
   String author;
   String readmore;
-  // Image
   Read_page(
       {Key? key,
       required this.tittle,
