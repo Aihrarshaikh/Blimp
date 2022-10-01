@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:knows/screens/home.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,7 +18,6 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(),
         ).apply(
           bodyColor: Colors.white,
-          // displayColor: Colors.blue,
         ),
       ),
       debugShowCheckedModeBanner: false,
