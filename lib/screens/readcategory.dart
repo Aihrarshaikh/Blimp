@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:knows/constant.dart';
+import 'package:knows/constants/constant.dart';
 import 'package:knows/models/apiservices.dart';
-import 'package:knows/readpage.dart';
-import 'models/data_model.dart';
+import 'package:knows/screens/readpage.dart';
+import '../models/data_model.dart';
 
 class Readcategory extends StatefulWidget {
   String categoryname;
 
-  Readcategory({Key? key, required this.categoryname})
-      : super(key: key);
+  Readcategory({Key? key, required this.categoryname}) : super(key: key);
 
   @override
   State<Readcategory> createState() => _ReadcategoryState();
@@ -52,12 +51,12 @@ class _ReadcategoryState extends State<Readcategory> {
           Center(
             child: FutureBuilder(
               future: ApiService().getnews(widget.categoryname),
-              builder: (context,AsyncSnapshot snapshot) {
+              builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   return SizedBox(
                     height: snapshot.data.length * 202.toDouble(),
                     child: ListView.builder(
-                        physics:const  NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
@@ -66,12 +65,12 @@ class _ReadcategoryState extends State<Readcategory> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => Read_page(
-                                    tittle: snapshot.data[index].title
-                                        .toString(),
-                                    content: snapshot.data[index].content
-                                        .toString(),
-                                    author: snapshot.data[index].author
-                                        .toString(),
+                                    tittle:
+                                        snapshot.data[index].title.toString(),
+                                    content:
+                                        snapshot.data[index].content.toString(),
+                                    author:
+                                        snapshot.data[index].author.toString(),
                                     imageurl: snapshot.data[index].imageUrl
                                         .toString(),
                                     readmore: snapshot.data[index].readMoreUrl
@@ -111,7 +110,8 @@ class _ReadcategoryState extends State<Readcategory> {
                                             alignment: Alignment.center,
                                             fit: BoxFit.cover,
                                             clipBehavior: Clip.hardEdge,
-                                            child: Image.network(snapshot.data[index].imageUrl
+                                            child: Image.network(snapshot
+                                                .data[index].imageUrl
                                                 .toString()),
                                           ),
                                         ),
@@ -151,8 +151,8 @@ class _ReadcategoryState extends State<Readcategory> {
                                                   overflow: TextOverflow.fade,
                                                   color: Colors.grey,
                                                 ),
-                                                child: Text(snapshot.data[index]
-                                                        .author
+                                                child: Text(snapshot
+                                                        .data[index].author
                                                         .toString() +
                                                     '  |   ' +
                                                     snapshot.data[index].date

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:knows/home.dart';
+import 'package:knows/screens/home.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -12,7 +13,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       title: 'Blimp',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           // displayColor: Colors.blue,
         ),
       ),
-debugShowCheckedModeBanner:false,
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
     );
   }
