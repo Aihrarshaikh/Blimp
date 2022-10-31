@@ -4,21 +4,17 @@ import 'package:dio/dio.dart';
 
 import 'package:http/http.dart' as http;
 
-
 final Dio _dio = Dio();
-Future<List<Data>> getnuz(String categori)async{
-   try {
-     final response = await _dio.get(('https://inshorts.deta.dev/news?category=${categori}'));
-     // var jsonResponse = convert.jsonDecode(response.data) as Map<String,dynamic>;
-     var pdata = response.data['data'] as List;
-      List<Data> chotanuzz = pdata.map((m)=>Data.fromJson(m)).toList();
-      return chotanuzz;
-    }
-    catch(e){
-     throw Exception();
-    }
+Future<List<Data>> getnuz(String categori) async {
+  try {
+    final response =
+        await _dio.get(('https://inshorts.deta.dev/news?category=${categori}'));
+    var pdata = response.data['data'] as List;
+    return pdata.map((m) => Data.fromJson(m)).toList();
+  } catch (e) {
+    throw Exception();
   }
-
+}
 
 class Nuzz {
   String? category;
@@ -61,13 +57,13 @@ class Data {
 
   Data(
       {this.author,
-        this.content,
-        this.date,
-        this.imageUrl,
-        this.readMoreUrl,
-        this.time,
-        this.title,
-        this.url});
+      this.content,
+      this.date,
+      this.imageUrl,
+      this.readMoreUrl,
+      this.time,
+      this.title,
+      this.url});
 
   Data.fromJson(Map<String, dynamic> json) {
     author = json['author'];
