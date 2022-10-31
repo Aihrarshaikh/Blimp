@@ -14,8 +14,13 @@ import 'package:carousel_slider/carousel_options.dart';
 class readcategori extends StatefulWidget {
   String categoriname;
   Future<void> categorinuzz;
-  List<Data>  categlist;
-  readcategori({Key? key,required this.categoriname,required this.categorinuzz,required this.categlist}) : super(key: key);
+  List<Data> categlist;
+  readcategori(
+      {Key? key,
+      required this.categoriname,
+      required this.categorinuzz,
+      required this.categlist})
+      : super(key: key);
 
   @override
   State<readcategori> createState() => _readcategoriState();
@@ -61,7 +66,7 @@ class _readcategoriState extends State<readcategori> {
             ),
             Center(
               child: SizedBox(
-                height: widget.categlist.length*202.toDouble(),
+                height: widget.categlist.length * 202.toDouble(),
                 // width: double.infinity,
                 child: FutureBuilder(
                   future: widget.categorinuzz,
@@ -79,12 +84,17 @@ class _readcategoriState extends State<readcategori> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => read_page(
-                                      tittle: widget.categlist[idx].title.toString(),
-                                      content: widget.categlist[idx].content.toString(),
-                                      author: widget.categlist[idx].author.toString(),
-                                      imageurl: widget.categlist[idx].imageUrl.toString(),
-                                      readmore:
-                                          widget.categlist[idx].readMoreUrl.toString(),
+                                      tittle: widget.categlist[idx].title
+                                          .toString(),
+                                      content: widget.categlist[idx].content
+                                          .toString(),
+                                      author: widget.categlist[idx].author
+                                          .toString(),
+                                      imageurl: widget.categlist[idx].imageUrl
+                                          .toString(),
+                                      readmore: widget
+                                          .categlist[idx].readMoreUrl
+                                          .toString(),
                                     ),
                                   ),
                                 );
@@ -114,12 +124,13 @@ class _readcategoriState extends State<readcategori> {
                                                   BorderRadius.circular(20)),
                                           // padding: EdgeInsets.all(25),
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(20),
+                                            borderRadius:
+                                                BorderRadius.circular(20),
                                             child: FittedBox(
                                               alignment: Alignment.center,
                                               fit: BoxFit.cover,
-                                              child: Image.network(widget.categlist[idx]
-                                                  .imageUrl
+                                              child: Image.network(widget
+                                                  .categlist[idx].imageUrl
                                                   .toString()),
                                               clipBehavior: Clip.hardEdge,
                                             ),
@@ -136,14 +147,17 @@ class _readcategoriState extends State<readcategori> {
                                               width: 160,
                                               margin: EdgeInsets.all(10),
                                               child: DefaultTextStyle(
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 14,
-                                                    overflow: TextOverflow.fade),
+                                                    overflow:
+                                                        TextOverflow.fade),
                                                 child: Text(
-                                                  widget.categlist[idx].title.toString(),
+                                                  widget.categlist[idx].title
+                                                      .toString(),
                                                   maxLines: 4,
                                                   style: TextStyle(
-                                                      overflow: TextOverflow.clip),
+                                                      overflow:
+                                                          TextOverflow.clip),
                                                 ),
                                               ),
                                             ),
@@ -153,18 +167,13 @@ class _readcategoriState extends State<readcategori> {
                                                 // padding: EdgeInsets.symmetric(horizontal: 10),
                                                 width: 160,
                                                 child: DefaultTextStyle(
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontSize: 12,
                                                     overflow: TextOverflow.fade,
                                                     color: Colors.grey,
                                                   ),
-                                                  child: Text(widget.categlist[idx]
-                                                          .author
-                                                          .toString() +
-                                                      '  |   ' +
-                                                      widget.categlist[idx]
-                                                          .date
-                                                          .toString()),
+                                                  child: Text(
+                                                      '${widget.categlist[idx].author}  |   ${widget.categlist[idx].date}'),
                                                 ),
                                               ),
                                             ),
