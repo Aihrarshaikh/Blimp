@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:knows/models/Data_model.dart';
+
 List<Data> nuzzs = [];
 List<Data> nuzznational = [];
 List<Data> nuzzbusiness = [];
 List<Data> nuzzsports = [];
 List<Data> nuzzworld = [];
 List<Data> nuzzpolitics = [];
-List<Data> nuzzstartup= [];
+List<Data> nuzzstartup = [];
 List<Data> nuzzentertainment = [];
 List<Data> nuzzmiscellaneous = [];
 List<Data> technuzz = [];
@@ -16,20 +17,21 @@ List<Data> nuzzsci = [];
 List<Data> nuzzauto = [];
 
 Future<void> getauto() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=automobile'));
+  final response = await http
+      .get(Uri.parse('https://inshorts.deta.dev/news?category=automobile'));
   var jsonData = jsonDecode(response.body);
-  if (jsonData['success']==true) {
-    jsonData['data'].forEach((element){
-      if(element['readMoreUrl']!=null){
+  if (jsonData['success'] == true) {
+    jsonData['data'].forEach((element) {
+      if (element['readMoreUrl'] != null) {
         Data data = Data(
-          author : element['author'],
-          content : element['content'],
-          date : element['date'],
-          imageUrl : element['imageUrl'],
-          readMoreUrl : element['readMoreUrl'],
-          time : element['time'],
-          title : element['title'],
-          url : element['url'],
+          author: element['author'],
+          content: element['content'],
+          date: element['date'],
+          imageUrl: element['imageUrl'],
+          readMoreUrl: element['readMoreUrl'],
+          time: element['time'],
+          title: element['title'],
+          url: element['url'],
         );
         nuzzauto.add(data);
       }
@@ -38,41 +40,44 @@ Future<void> getauto() async {
 }
 
 Future<void> getmischef() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=miscellaneous'));
+  final response = await http
+      .get(Uri.parse('https://inshorts.deta.dev/news?category=miscellaneous'));
   var jsonData = jsonDecode(response.body);
-  if (jsonData['success']==true) {
-    jsonData['data'].forEach((element){
-      if(element['readMoreUrl']!=null){
+  if (jsonData['success'] == true) {
+    jsonData['data'].forEach((element) {
+      if (element['readMoreUrl'] != null) {
         Data data = Data(
-          author : element['author'],
-          content : element['content'],
-          date : element['date'],
-          imageUrl : element['imageUrl'],
-          readMoreUrl : element['readMoreUrl'],
-          time : element['time'],
-          title : element['title'],
-          url : element['url'],
+          author: element['author'],
+          content: element['content'],
+          date: element['date'],
+          imageUrl: element['imageUrl'],
+          readMoreUrl: element['readMoreUrl'],
+          time: element['time'],
+          title: element['title'],
+          url: element['url'],
         );
         nuzzmiscellaneous.add(data);
       }
     });
   }
 }
+
 Future<void> getscience() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=science'));
+  final response = await http
+      .get(Uri.parse('https://inshorts.deta.dev/news?category=science'));
   var jsonData = jsonDecode(response.body);
-  if (jsonData['success']==true) {
-    jsonData['data'].forEach((element){
-      if(element['readMoreUrl']!=null){
+  if (jsonData['success'] == true) {
+    jsonData['data'].forEach((element) {
+      if (element['readMoreUrl'] != null) {
         Data data = Data(
-          author : element['author'],
-          content : element['content'],
-          date : element['date'],
-          imageUrl : element['imageUrl'],
-          readMoreUrl : element['readMoreUrl'],
-          time : element['time'],
-          title : element['title'],
-          url : element['url'],
+          author: element['author'],
+          content: element['content'],
+          date: element['date'],
+          imageUrl: element['imageUrl'],
+          readMoreUrl: element['readMoreUrl'],
+          time: element['time'],
+          title: element['title'],
+          url: element['url'],
         );
         nuzzsci.add(data);
       }
@@ -80,22 +85,22 @@ Future<void> getscience() async {
   }
 }
 
-
 Future<void> getentertainment() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=entertainment'));
+  final response = await http
+      .get(Uri.parse('https://inshorts.deta.dev/news?category=entertainment'));
   var jsonData = jsonDecode(response.body);
-  if (jsonData['success']==true) {
-    jsonData['data'].forEach((element){
-      if(element['readMoreUrl']!=null){
+  if (jsonData['success'] == true) {
+    jsonData['data'].forEach((element) {
+      if (element['readMoreUrl'] != null) {
         Data data = Data(
-          author : element['author'],
-          content : element['content'],
-          date : element['date'],
-          imageUrl : element['imageUrl'],
-          readMoreUrl : element['readMoreUrl'],
-          time : element['time'],
-          title : element['title'],
-          url : element['url'],
+          author: element['author'],
+          content: element['content'],
+          date: element['date'],
+          imageUrl: element['imageUrl'],
+          readMoreUrl: element['readMoreUrl'],
+          time: element['time'],
+          title: element['title'],
+          url: element['url'],
         );
         nuzzentertainment.add(data);
       }
@@ -104,20 +109,21 @@ Future<void> getentertainment() async {
 }
 
 Future<void> getstartup() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=startup'));
+  final response = await http
+      .get(Uri.parse('https://inshorts.deta.dev/news?category=startup'));
   var jsonData = jsonDecode(response.body);
-  if (jsonData['success']==true) {
-    jsonData['data'].forEach((element){
-      if(element['readMoreUrl']!=null){
+  if (jsonData['success'] == true) {
+    jsonData['data'].forEach((element) {
+      if (element['readMoreUrl'] != null) {
         Data data = Data(
-          author : element['author'],
-          content : element['content'],
-          date : element['date'],
-          imageUrl : element['imageUrl'],
-          readMoreUrl : element['readMoreUrl'],
-          time : element['time'],
-          title : element['title'],
-          url : element['url'],
+          author: element['author'],
+          content: element['content'],
+          date: element['date'],
+          imageUrl: element['imageUrl'],
+          readMoreUrl: element['readMoreUrl'],
+          time: element['time'],
+          title: element['title'],
+          url: element['url'],
         );
         nuzzstartup.add(data);
       }
@@ -126,20 +132,21 @@ Future<void> getstartup() async {
 }
 
 Future<void> getpolitics() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=politics'));
+  final response = await http
+      .get(Uri.parse('https://inshorts.deta.dev/news?category=politics'));
   var jsonData = jsonDecode(response.body);
-  if (jsonData['success']==true) {
-    jsonData['data'].forEach((element){
-      if(element['readMoreUrl']!=null){
+  if (jsonData['success'] == true) {
+    jsonData['data'].forEach((element) {
+      if (element['readMoreUrl'] != null) {
         Data data = Data(
-          author : element['author'],
-          content : element['content'],
-          date : element['date'],
-          imageUrl : element['imageUrl'],
-          readMoreUrl : element['readMoreUrl'],
-          time : element['time'],
-          title : element['title'],
-          url : element['url'],
+          author: element['author'],
+          content: element['content'],
+          date: element['date'],
+          imageUrl: element['imageUrl'],
+          readMoreUrl: element['readMoreUrl'],
+          time: element['time'],
+          title: element['title'],
+          url: element['url'],
         );
         nuzzpolitics.add(data);
       }
@@ -148,20 +155,21 @@ Future<void> getpolitics() async {
 }
 
 Future<void> getworld() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=world'));
+  final response = await http
+      .get(Uri.parse('https://inshorts.deta.dev/news?category=world'));
   var jsonData = jsonDecode(response.body);
-  if (jsonData['success']==true) {
-    jsonData['data'].forEach((element){
-      if(element['readMoreUrl']!=null){
+  if (jsonData['success'] == true) {
+    jsonData['data'].forEach((element) {
+      if (element['readMoreUrl'] != null) {
         Data data = Data(
-          author : element['author'],
-          content : element['content'],
-          date : element['date'],
-          imageUrl : element['imageUrl'],
-          readMoreUrl : element['readMoreUrl'],
-          time : element['time'],
-          title : element['title'],
-          url : element['url'],
+          author: element['author'],
+          content: element['content'],
+          date: element['date'],
+          imageUrl: element['imageUrl'],
+          readMoreUrl: element['readMoreUrl'],
+          time: element['time'],
+          title: element['title'],
+          url: element['url'],
         );
         nuzzworld.add(data);
       }
@@ -170,20 +178,21 @@ Future<void> getworld() async {
 }
 
 Future<void> getsports() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=sports'));
+  final response = await http
+      .get(Uri.parse('https://inshorts.deta.dev/news?category=sports'));
   var jsonData = jsonDecode(response.body);
-  if (jsonData['success']==true) {
-    jsonData['data'].forEach((element){
-      if(element['readMoreUrl']!=null){
+  if (jsonData['success'] == true) {
+    jsonData['data'].forEach((element) {
+      if (element['readMoreUrl'] != null) {
         Data data = Data(
-          author : element['author'],
-          content : element['content'],
-          date : element['date'],
-          imageUrl : element['imageUrl'],
-          readMoreUrl : element['readMoreUrl'],
-          time : element['time'],
-          title : element['title'],
-          url : element['url'],
+          author: element['author'],
+          content: element['content'],
+          date: element['date'],
+          imageUrl: element['imageUrl'],
+          readMoreUrl: element['readMoreUrl'],
+          time: element['time'],
+          title: element['title'],
+          url: element['url'],
         );
         nuzzsports.add(data);
       }
@@ -192,20 +201,21 @@ Future<void> getsports() async {
 }
 
 Future<void> getbusiness() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=business'));
+  final response = await http
+      .get(Uri.parse('https://inshorts.deta.dev/news?category=business'));
   var jsonData = jsonDecode(response.body);
-  if (jsonData['success']==true) {
-    jsonData['data'].forEach((element){
-      if(element['readMoreUrl']!=null){
+  if (jsonData['success'] == true) {
+    jsonData['data'].forEach((element) {
+      if (element['readMoreUrl'] != null) {
         Data data = Data(
-          author : element['author'],
-          content : element['content'],
-          date : element['date'],
-          imageUrl : element['imageUrl'],
-          readMoreUrl : element['readMoreUrl'],
-          time : element['time'],
-          title : element['title'],
-          url : element['url'],
+          author: element['author'],
+          content: element['content'],
+          date: element['date'],
+          imageUrl: element['imageUrl'],
+          readMoreUrl: element['readMoreUrl'],
+          time: element['time'],
+          title: element['title'],
+          url: element['url'],
         );
         nuzzbusiness.add(data);
       }
@@ -213,23 +223,22 @@ Future<void> getbusiness() async {
   }
 }
 
-
-
 Future<void> getallnuz() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=all'));
+  final response =
+      await http.get(Uri.parse('https://inshorts.deta.dev/news?category=all'));
   var jsonData = jsonDecode(response.body);
-  if (jsonData['success']==true) {
-    jsonData['data'].forEach((element){
-      if(element['readMoreUrl']!=null){
+  if (jsonData['success'] == true) {
+    jsonData['data'].forEach((element) {
+      if (element['readMoreUrl'] != null) {
         Data data = Data(
-          author : element['author'],
-          content : element['content'],
-          date : element['date'],
-          imageUrl : element['imageUrl'],
-          readMoreUrl : element['readMoreUrl'],
-          time : element['time'],
-          title : element['title'],
-          url : element['url'],
+          author: element['author'],
+          content: element['content'],
+          date: element['date'],
+          imageUrl: element['imageUrl'],
+          readMoreUrl: element['readMoreUrl'],
+          time: element['time'],
+          title: element['title'],
+          url: element['url'],
         );
         nuzzs.add(data);
       }
@@ -238,20 +247,21 @@ Future<void> getallnuz() async {
 }
 
 Future<void> gettech() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=technology'));
+  final response = await http
+      .get(Uri.parse('https://inshorts.deta.dev/news?category=technology'));
   var jsonData = jsonDecode(response.body);
-  if (jsonData['success']==true) {
-    jsonData['data'].forEach((element){
-      if(element['readMoreUrl']!=null){
+  if (jsonData['success'] == true) {
+    jsonData['data'].forEach((element) {
+      if (element['readMoreUrl'] != null) {
         Data data = Data(
-          author : element['author'],
-          content : element['content'],
-          date : element['date'],
-          imageUrl : element['imageUrl'],
-          readMoreUrl : element['readMoreUrl'],
-          time : element['time'],
-          title : element['title'],
-          url : element['url'],
+          author: element['author'],
+          content: element['content'],
+          date: element['date'],
+          imageUrl: element['imageUrl'],
+          readMoreUrl: element['readMoreUrl'],
+          time: element['time'],
+          title: element['title'],
+          url: element['url'],
         );
         technuzz.add(data);
       }
@@ -260,20 +270,21 @@ Future<void> gettech() async {
 }
 
 Future<void> getnational() async {
-  final response = await http.get(Uri.parse('https://inshorts.deta.dev/news?category=national'));
+  final response = await http
+      .get(Uri.parse('https://inshorts.deta.dev/news?category=national'));
   var jsonData = jsonDecode(response.body);
-  if (jsonData['success']==true) {
-    jsonData['data'].forEach((element){
-      if(element['readMoreUrl']!=null){
+  if (jsonData['success'] == true) {
+    jsonData['data'].forEach((element) {
+      if (element['readMoreUrl'] != null) {
         Data data = Data(
-          author : element['author'],
-          content : element['content'],
-          date : element['date'],
-          imageUrl : element['imageUrl'],
-          readMoreUrl : element['readMoreUrl'],
-          time : element['time'],
-          title : element['title'],
-          url : element['url'],
+          author: element['author'],
+          content: element['content'],
+          date: element['date'],
+          imageUrl: element['imageUrl'],
+          readMoreUrl: element['readMoreUrl'],
+          time: element['time'],
+          title: element['title'],
+          url: element['url'],
         );
         nuzznational.add(data);
       }

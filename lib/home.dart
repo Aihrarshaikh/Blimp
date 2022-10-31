@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:knows/constant.dart';
 import 'package:knows/readcategory.dart';
 import 'package:knows/readpage.dart';
-// import 'package:webview_flutter/webview_flutter.dart';
 import 'models/Data_model.dart';
 import 'getters.dart';
 import 'package:carousel_slider/carousel_options.dart';
@@ -67,7 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
     getscience();
     gettech();
     super.initState();
-    // WebView.platform = AndroidWebView();
   }
 
   Widget build(BuildContext context) {
@@ -116,8 +114,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       return Center(child: CircularProgressIndicator());
                     } else {
                       return CarouselSlider.builder(
-                        // physics: ClampingScrollPhysics(),
-                        // scrollDirection: Axis.horizontal,
                         itemCount: nuzzsci.length,
                         itemBuilder: (context, idx, o) {
                           return Padding(
@@ -129,7 +125,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     MaterialPageRoute(
                                       builder: (context) => read_page(
                                         tittle: nuzzsci[idx].title.toString(),
-                                        content: nuzzsci[idx].content.toString(),
+                                        content:
+                                            nuzzsci[idx].content.toString(),
                                         author: nuzzsci[idx].author.toString(),
                                         imageurl:
                                             nuzzsci[idx].imageUrl.toString(),
@@ -187,7 +184,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           autoPlayAnimationDuration:
                               Duration(milliseconds: 800),
                           autoPlayCurve: Curves.fastOutSlowIn,
-                          // enlargeCenterPage: true,
                         ),
                       );
                     }
@@ -213,7 +209,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Row(children: [
                       Container(
                         margin: EdgeInsets.only(left: 5),
-                        // color : kcard,
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
@@ -262,11 +257,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.white,
               ),
             ),
-            // SizedBox(height: 180),
             Center(
               child: SizedBox(
-                height: technuzz.length* 211.toDouble(),
-                // width: double.infinity,
+                height: technuzz.length * 211.toDouble(),
                 child: FutureBuilder(
                   future: gettech(),
                   builder: (context, snapshot) {
@@ -318,7 +311,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(20)),
-                                          // padding: EdgeInsets.all(25),
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(20),
@@ -361,7 +353,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                             Align(
                                               alignment: Alignment.bottomLeft,
                                               child: Container(
-                                                // padding: EdgeInsets.symmetric(horizontal: 10),
                                                 width: 160,
                                                 child: DefaultTextStyle(
                                                   style: TextStyle(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:knows/home.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -8,11 +9,9 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       title: 'Blimp',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -22,10 +21,9 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(),
         ).apply(
           bodyColor: Colors.white,
-          // displayColor: Colors.blue,
         ),
       ),
-debugShowCheckedModeBanner:false,
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
     );
   }
