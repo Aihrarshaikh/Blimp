@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:knows/snackbar.dart';
 
+import 'home.dart';
+
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -25,7 +27,9 @@ class _SplashPageState extends State<SplashPage> {
     _redirectCalled = true;
     final session = supabase.auth.currentSession;
     if (session != null) {
-      Navigator.of(context).pushReplacementNamed('/account');
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const SplashPage()));
     } else {
       Navigator.of(context).pushReplacementNamed('/login');
     }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:knows/constant.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:knows/snackbar.dart';
@@ -52,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
       final session = data.session;
       if (session != null) {
         _redirecting = true;
-        Navigator.of(context).pushReplacementNamed('/account');
+        Navigator.of(context).pushReplacementNamed('/homepage');
       }
     });
     super.initState();
@@ -68,7 +69,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Sign In')),
+      backgroundColor: kbasik,
+      appBar: AppBar(title: const Text('Sign In') , backgroundColor: kcard,),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
         children: [
@@ -76,12 +78,18 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 18),
           TextFormField(
             controller: _emailController,
-            decoration: const InputDecoration(labelText: 'Email'),
+            decoration: const InputDecoration(labelText: 'Email',),
+            style: TextStyle(
+              color: Colors.grey
+            ),
           ),
           const SizedBox(height: 18),
           ElevatedButton(
             onPressed: _isLoading ? null : _signIn,
             child: Text(_isLoading ? 'Loading' : 'Send Magic Link'),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateColor.resolveWith((states) => Color(0xFFF29300))
+            ),
           ),
         ],
       ),
